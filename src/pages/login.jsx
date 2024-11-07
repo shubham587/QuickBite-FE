@@ -6,11 +6,12 @@ const LoginPage = () => {
     const [location, setLocation] = useState("");
     const [usernameFocused, setUsernameFocused] = useState("");
     const [passwordFocused, setPasswordFocused] = useState("");
-    // const [locationFocused, setLocationFocused] = useState("");
-    return <div className="w-full h-screen bg-cover bg-center" style="background-image: url('../images/loginBackgorund.webp');">
-        <h2>Login</h2>
-        <form className="loginForm">
-        <div className="formContainer" >
+    return (
+    <div className="background">
+    <div className={"relative w-[400px] mx-auto top-[20%]"}>
+      <h2 className="w-[384px]">Login</h2>
+      <form className="w-[384px]">
+        <div className="mb-2.5">
           <label
             htmlFor="username"
             className={`username ${usernameFocused||username ? "focused" : ""}`}
@@ -58,6 +59,8 @@ const LoginPage = () => {
         </button>
       </form>
     </div>
+    </div>
+    )
 }
 
 export default LoginPage

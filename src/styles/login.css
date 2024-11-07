@@ -4,3 +4,14 @@
     width: 100vw;
 
 }
+
+/* .loginContainer {
+    position: relative;
+    width: 400px;
+    margin: 0 auto;
+    top: 20%;
+  } */
+
+  .loginForm {
+    width: 384px;
+  }
