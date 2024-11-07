@@ -1,12 +1,18 @@
-import { useState } from 'react'
-import { BrowserRouter ,Routes, Route, useParams, useLocation  } from "react-router-dom";
-import LoginPage from './pages/login';
-import Navbar from './components/index'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import DefaultLayout from './Layout/DefaultLayout';
-import LandPage from './pages/LandingPage/index.jsx';
-import CatelougePage from './pages/CateloguePage';
-import { loader as CatelogueLoader } from "../src/pages/CateloguePage/index.jsx"
+import { useState } from "react";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  useParams,
+  useLocation,
+} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import DefaultLayout from "./Layout/DefaultLayout";
+import LandPage from "./pages/LandingPage/index.jsx";
+import CatelougePage, {loader as CatelogueLoader} from "./pages/CateloguePage";
+// import { loader as CatelogueLoader } from "../src/pages/CateloguePage/index.jsx";
+import SignUp, { action as signupAction} from "./pages/Signup/index.jsx";
+import LoginPage, {action as loginAction} from "./pages/Login/index.jsx";
 
 const router = createBrowserRouter([
   {
@@ -16,26 +22,46 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <LandPage />,
-        // loader: "loaderFunction",
-        // action: "actionFunction"
-      }, 
+      },
       {
-        path: "/catelogue",
+        path: "catelogue/:seller_name?", 
         element: <CatelougePage />,
-        loader: CatelogueLoader
+        loader: CatelogueLoader,
+      },
+      {
+        path: "order",
+      },
+      {
+        path: "cart",
+      },
+      {
+        path: "account"
+      }
+    ],
+  },
+  {
+    path: "/auth",
+    children: [
+      {
+        path: "signup",
+        element: <SignUp />,
+        action: signupAction
+      },
+      {
+        path: "login",
+        element: <LoginPage />,
+        action: loginAction
       }
     ]
   }
-])
+]);
 
 function App() {
-
-  
   return (
     <div>
-      <RouterProvider router={router}/>
+      <RouterProvider router={router} />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

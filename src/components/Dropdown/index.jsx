@@ -15,7 +15,7 @@ const Dropdown = ({ className, checkItem, items, onChangeFunction, triggerName }
     <>
       <div className={dropdownClass}>
         <DropdownMenu>
-          <DropdownMenuTrigger className="bg-white">{triggerName}</DropdownMenuTrigger>
+          <DropdownMenuTrigger className="bg-white">{triggerName || checkItem}</DropdownMenuTrigger>
           <DropdownMenuContent className="bg-black text-white rounded-xl">
             {items.map((ele, ind) => (
               <DropdownMenuCheckboxItem

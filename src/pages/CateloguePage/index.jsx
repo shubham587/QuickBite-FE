@@ -2,14 +2,14 @@ import Dropdown from "@/components/Dropdown";
 import { Button } from "@/components/ui/button";
 import api from "@/service/api";
 import React, { useState } from "react";
-import { useLoaderData } from "react-router-dom";
+import { json, useLoaderData } from "react-router-dom";
 
 const FOOD_TAGS = ["Breakfast", "Biryani", "Tea", "Momo", "KFC", "Pizza"];
 
 const CatelougePage = () => {
-  const [foodPref, setFoodPref] = useState(null);
-  const [sortPref, setSortPref] = useState(null);
-  const loader = useLoaderData()
+  let loader = useLoaderData()
+  const [foodPref, setFoodPref] = useState("Veg/Non-veg");
+  const [sortPref, setSortPref] = useState("Sort Price");
   console.log("loader", loader)
   const FOOD_PREF = [
     {
@@ -21,7 +21,7 @@ const CatelougePage = () => {
       onChange: (val) => setFoodPref(val),
     },
     {
-      name: "both",
+      name: "Veg/Non-veg",
       onChange: (val) => setFoodPref(val),
     },
   ];
@@ -63,12 +63,12 @@ const CatelougePage = () => {
           ))}
         </div>
         <div className="filter-bar m-auto flex flex-row gap-8">
-          <div className="veg-non">
+          <div className="veg-non text-center">
             {
-              <div className="bg-white rounded-2xl">
+              <div className="bg-white rounded-2xl p-2 w-40">
                 <Dropdown
                   className="text-black bg-white border-none"
-                  triggerName="Veg/Non-veg"
+                  // triggerName="Veg/Non-veg"
                   items={FOOD_PREF}
                   onChangeFunction={foodPrefHandler}
                   checkItem={foodPref}
@@ -76,12 +76,12 @@ const CatelougePage = () => {
               </div>
             }
           </div>
-          <div className="sortby">
+          <div className="sortby  text-center">
             {
-              <div className="bg-white rounded-2xl">
+              <div className="bg-white rounded-2xl p-2 w-40">
                 <Dropdown
                   className="text-black bg-white border-none"
-                  triggerName="Sort Price"
+                  // triggerName="Sort Price"
                   items={SORT_DATA}
                   onChangeFunction={sortHandler}
                   checkItem={sortPref}
@@ -101,15 +101,19 @@ const CatelougePage = () => {
 export default CatelougePage;
 
 export const loader = async({request, params}) => {
+
+  const {seller_name} = params
+  console.log("seller_name", seller_name)
+  
   const fetchData = async() => {
     try{
-      const res = await api.getAllProduct({"location": "Chennai", "seller_name": "A2B"})
+      let res = await api.getAllProduct({"location": "Chennai", "seller_name": "A2B"})
       console.log(res)
-      return res
+      return json(res)
     }catch(err){
       return err
     }
   }
-  fetchData()
-  return null
+  return fetchData()
+  // return null
 }

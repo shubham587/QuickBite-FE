@@ -1,27 +1,94 @@
-import { useState } from "react";
-import logo from "../images/logo.webp";
-import { Input } from "./ui/input";
-import { NavLink } from "react-router-dom";
-import Dropdown from "./Dropdown";
+import { useEffect, useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import logo from "../../images/logo.webp";
+import { Input } from "../ui/input";
+import Dropdown from "../Dropdown";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "@/store/authSlice";
+import { toast } from "react-toastify";
+import api from "@/service/api";
+
+const AccountDropdownNotSign = [
+  {
+    name: "Login",
+    onChange: (val) => console.log(val),
+  },
+  {
+    name: "Sign up",
+    onChange: (val) => console.log(val),
+  },
+];
+
+const AccountDropdownSign = [
+  {
+    name: "Profile",
+    onChange: (val) => console.log(val),
+  },
+  {
+    name: "Logout",
+    onChange: (val) => console.log(val),
+  },
+];
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
-  const [location, setLocation] = useState("Bangalore")
+  const [location, setLocation] = useState("Bangalore");
+  const [account, setAccount] = useState("AccountDropdownNotSign");
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const auth = useSelector((state) => state.auth.isAuthenticated);
+
+  useEffect(() => {
+    if (auth) {
+      setAccount("AccountDropdownSign");
+    } else {
+      setAccount((prev) =>
+        prev == "AccountDropdownNotSign"
+          ? "AccountDropdownSign"
+          : "AccountDropdownNotSign"
+      );
+    }
+  }, [auth]);
 
   const LocationDropdown = [
     {
       name: "Bangalore",
-      onChange: (val) => setLocation(val) 
-    }, 
+      onChange: (val) => setLocation(val),
+    },
     {
       name: "Chennai",
-      onChange: (val) => setLocation(val)
+      onChange: (val) => setLocation(val),
     },
-  ]
+  ];
+
+  const logoutHandler = async () => {
+    const res = await api.logoutUser();
+    if (res.status == 200) {
+      let resp = dispatch(logout());
+      toast.success("Successfully ");
+      navigate("/");
+    } else {
+      toast.error("Failed to logout");
+    }
+  };
+  
+  const accountHandler = (val) => {
+    if (val == "Login") {
+      navigate("/auth/login");
+    } else if (val == "Sign up") {
+      navigate("/auth/signup");
+    } else if (val == "Profile") {
+      navigate("/profile");
+    } else {
+      logoutHandler();
+    }
+  };
+
+  
 
   const locationHandler = (val) => {
-    setLocation(val)
-  }
+    setLocation(val);
+  };
 
   return (
     <div className="flex justify-between m-auto z-20 mb-36 border left-0 fixed place-items-center align-middle text-xl bg-white text-black p-[2px_20px] w-full  h-[11%]  top-0 ">
@@ -48,7 +115,7 @@ const Navbar = () => {
         <ul className="flex justify-between  gap-8 h-[100%] ">
           <li
             className=""
-            onClick={() => navigate("/quick-bite-application/home")}
+            // onClick={() => navigate("/quick-bite-application/home")}
           >
             <NavLink
               to="/"
@@ -94,11 +161,19 @@ const Navbar = () => {
           </li>
           <li className="">
             <NavLink
-              to="/account"
               className="text-black hover:text-orange-500
              hover:decoration-2 hover:decoration-orange-500"
             >
-              Account
+              <Dropdown
+                checkItem={account}
+                triggerName="Account"
+                items={
+                  account == "AccountDropdownNotSign"
+                    ? AccountDropdownNotSign
+                    : AccountDropdownSign
+                }
+                onChangeFunction={accountHandler}
+              />
             </NavLink>
           </li>
           <li>
@@ -107,7 +182,12 @@ const Navbar = () => {
               className="text-black hover:text-orange-500
              hover:decoration-2 hover:decoration-orange-500"
             >
-              <Dropdown checkItem={location} triggerName="location" items={LocationDropdown} onChangeFunction={locationHandler} />
+              <Dropdown
+                checkItem={location}
+                // triggerName="location"
+                items={LocationDropdown}
+                onChangeFunction={locationHandler}
+              />
             </NavLink>
           </li>
         </ul>
