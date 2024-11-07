@@ -2,12 +2,29 @@ import { useState } from "react";
 import logo from "../images/logo.webp";
 import { Input } from "./ui/input";
 import { NavLink } from "react-router-dom";
-import LocationDrop from "./locationDrop";
+import Dropdown from "./Dropdown";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const [location, setLocation] = useState("Bangalore")
+
+  const LocationDropdown = [
+    {
+      name: "Bangalore",
+      onChange: (val) => setLocation(val) 
+    }, 
+    {
+      name: "Chennai",
+      onChange: (val) => setLocation(val)
+    },
+  ]
+
+  const locationHandler = (val) => {
+    setLocation(val)
+  }
+
   return (
-    <div className="flex justify-between m-auto z-20 border left-0 fixed place-items-center align-middle text-xl bg-white text-black p-[2px_20px] w-full  h-[11%]  top-0 ">
+    <div className="flex justify-between m-auto z-20 mb-36 border left-0 fixed place-items-center align-middle text-xl bg-white text-black p-[2px_20px] w-full  h-[11%]  top-0 ">
       <div className="w-24 h-24 flex-none ml-64 ">
         <img src={logo} alt="" className=" max-w-full h-auto left-[8%]" />
       </div>
@@ -43,7 +60,7 @@ const Navbar = () => {
           </li>
           <li className=" ">
             <NavLink
-              to="/"
+              to="/catelogue"
               className="text-black hover:text-orange-500
              hover:decoration-2 hover:decoration-orange-500"
             >
@@ -68,7 +85,7 @@ const Navbar = () => {
             onClick={() => navigate("/quick-bite-application/cart")}
           >
             <NavLink
-              to="/"
+              to="/cart"
               className="text-black hover:text-orange-500
              hover:decoration-2 hover:decoration-orange-500"
             >
@@ -77,7 +94,7 @@ const Navbar = () => {
           </li>
           <li className="">
             <NavLink
-              to="/"
+              to="/account"
               className="text-black hover:text-orange-500
              hover:decoration-2 hover:decoration-orange-500"
             >
@@ -90,7 +107,7 @@ const Navbar = () => {
               className="text-black hover:text-orange-500
              hover:decoration-2 hover:decoration-orange-500"
             >
-              <LocationDrop />
+              <Dropdown checkItem={location} triggerName="location" items={LocationDropdown} onChangeFunction={locationHandler} />
             </NavLink>
           </li>
         </ul>

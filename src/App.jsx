@@ -5,6 +5,7 @@ import Navbar from './components/index'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import DefaultLayout from './Layout/DefaultLayout';
 import LandPage from './pages/LandingPage/index.jsx';
+import CatelougePage from './pages/CateloguePage';
 
 
 const router = createBrowserRouter([
@@ -18,6 +19,11 @@ const router = createBrowserRouter([
         // loader: "loaderFunction",
         // action: "actionFunction"
       }, 
+      {
+        path: "/catelogue",
+        element: <CatelougePage />,
+        // loader: "cateLoader"
+      }
     ]
   }
 ])
