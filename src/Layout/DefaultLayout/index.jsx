@@ -9,7 +9,7 @@ const DefaultLayout = () => {
       <div className="">
         <Navbar />
       </div>
-      <div className="w-[90%] m-auto ">
+      <div className=" w-[90%]  m-auto ">
         <Outlet />
       </div>
       <div className="w-100">
