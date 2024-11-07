@@ -1,12 +1,13 @@
 import { useState } from "react";
 import logo from "../images/logo.webp";
 import { Input } from "./ui/input";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Dropdown from "./Dropdown";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [location, setLocation] = useState("Bangalore")
+  const navigate = useNavigate()
 
   const LocationDropdown = [
     {

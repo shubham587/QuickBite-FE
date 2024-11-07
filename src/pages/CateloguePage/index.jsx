@@ -3,10 +3,12 @@ import { Button } from "@/components/ui/button";
 import api from "@/service/api";
 import React, { useState } from "react";
 import { useLoaderData } from "react-router-dom";
+import GridLoader from "../../components/Grid";
 
 const FOOD_TAGS = ["Breakfast", "Biryani", "Tea", "Momo", "KFC", "Pizza"];
 
 const CatelougePage = () => {
+  // const [catelougeData, setCatelougeData] = useState(loader())
   const [foodPref, setFoodPref] = useState(null);
   const [sortPref, setSortPref] = useState(null);
   const loader = useLoaderData()
@@ -92,7 +94,7 @@ const CatelougePage = () => {
         </div>
       </div>
       <div className="catelogue-list">
-
+            <GridLoader gridDatas={loader}/>
       </div>
     </div>
   );
@@ -103,13 +105,13 @@ export default CatelougePage;
 export const loader = async({request, params}) => {
   const fetchData = async() => {
     try{
-      const res = await api.getAllProduct({"location": "Chennai", "seller_name": "A2B"})
+      const res = await api.getAllProduct({"location": "Chennai"})
       console.log(res)
       return res
     }catch(err){
       return err
     }
   }
-  fetchData()
-  return null
+  return fetchData()
+  // return null
 }
