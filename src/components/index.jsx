@@ -1,11 +1,16 @@
 import { useState } from "react";
 import logo from "../images/logo.webp";
+import { Input } from "./ui/input";
+import { NavLink } from "react-router-dom";
+import LocationDrop from "./locationDrop";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   return (
-    <div className="flex bg-gray-800 p-[2px_20px] w-screen h-[13%] absolute top-0 ">
-      <img src={logo} alt="" className="relative max-w-full h-auto left-[8%]" />
+    <div className="flex justify-between m-auto z-20 border left-0 fixed place-items-center align-middle text-xl bg-white text-black p-[2px_20px] w-full  h-[11%]  top-0 ">
+      <div className="w-24 h-24 flex-none ml-64 ">
+        <img src={logo} alt="" className=" max-w-full h-auto left-[8%]" />
+      </div>
       {/* <div className="spacer"></div>
       <div className="searchBar">
       <input
@@ -16,19 +21,36 @@ const Navbar = () => {
         className="searchInput"
       />
     </div> */}
-      <div style={{ width: "49%" }}></div>
-      <ul className="flex justify-center items-center m-0 p-0 flex h-[100%] gap-[20%]">
-        <li
-          className="w-[8vw] text-white p-2 justify-center items-center"
-          onClick={() => navigate("/quick-bite-application/home")}
-        >
-          Home
-        </li>
-        <li
-          className="w-[8vw] text-white p-2 justify-center items-center"
-        >
-          Catalouge
-          {/* <div className="absolute top-[93%] bg-gray-800 w-[10%]">
+      <div className="input-container">
+        <Input
+          className="w-80  text-black rounded-full"
+          placeholder="Search Biryani ?"
+        />
+      </div>
+      <div className=" font-medium ">
+        <ul className="flex justify-between  gap-8 h-[100%] ">
+          <li
+            className=""
+            onClick={() => navigate("/quick-bite-application/home")}
+          >
+            <NavLink
+              to="/"
+              className="text-black hover:text-orange-500
+             hover:decoration-2 hover:decoration-orange-500"
+            >
+              Home
+            </NavLink>
+          </li>
+          <li className=" ">
+            <NavLink
+              to="/"
+              className="text-black hover:text-orange-500
+             hover:decoration-2 hover:decoration-orange-500"
+            >
+              Catalouge
+            </NavLink>
+
+            {/* <div className="absolute top-[93%] bg-gray-800 w-[10%]">
             {open && (
               <div className="h-[20%] block">
                 <p className="relative dropdownItem p-[10%]">Snack</p>
@@ -40,17 +62,40 @@ const Navbar = () => {
               </div>
             )}
           </div> */}
-        </li>
-        <li
-          className="w-[8vw] text-white p-2 justify-center items-center"
-          onClick={() => navigate("/quick-bite-application/cart")}
-        >
-          Cart
-        </li>
-        <li className="w-[8vw] text-white p-2 justify-center items-center">
-          Account
-        </li>
-      </ul>
+          </li>
+          <li
+            className=""
+            onClick={() => navigate("/quick-bite-application/cart")}
+          >
+            <NavLink
+              to="/"
+              className="text-black hover:text-orange-500
+             hover:decoration-2 hover:decoration-orange-500"
+            >
+              Cart
+            </NavLink>
+          </li>
+          <li className="">
+            <NavLink
+              to="/"
+              className="text-black hover:text-orange-500
+             hover:decoration-2 hover:decoration-orange-500"
+            >
+              Account
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/"
+              className="text-black hover:text-orange-500
+             hover:decoration-2 hover:decoration-orange-500"
+            >
+              <LocationDrop />
+            </NavLink>
+          </li>
+        </ul>
+      </div>
+      <hr className="h-8" />
     </div>
   );
 };

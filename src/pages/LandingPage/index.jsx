@@ -6,7 +6,7 @@ import CategoryComp from '@/components/CatagoryLanding'
 
 const HomeComp = () => {
   return (
-    <div className='w-full -mt-4'>
+    <div className='w-full h-[11%] mt-4'>
       <div className='relative m-auto max-h-dvh max-w-dvw'>
         <div className="relative max-w-full max-h-dvh  border">
           <img src={landImg} alt="Example Image" className="w-dvw h-dvh" />

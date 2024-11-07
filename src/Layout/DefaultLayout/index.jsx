@@ -1,11 +1,15 @@
+import Navbar from "@/components";
 import React from "react";
 import { Outlet } from "react-router-dom";
 
 const DefaultLayout = () => {
   return (
-    <div>
+    <div className="flex flex-col max-w-fit bg-slate-100">
       {/* <Navbar /> */}
-      <div>
+      <div >
+        <Navbar />
+      </div>
+      <div className="w-[90%] m-auto " >
         <Outlet />
       </div>
       {/* <Footer /> */}
