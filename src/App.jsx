@@ -6,7 +6,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import DefaultLayout from './Layout/DefaultLayout';
 import LandPage from './pages/LandingPage/index.jsx';
 import CatelougePage from './pages/CateloguePage';
-
+import { loader as CatelogueLoader } from "../src/pages/CateloguePage/index.jsx"
 
 const router = createBrowserRouter([
   {
@@ -22,7 +22,7 @@ const router = createBrowserRouter([
       {
         path: "/catelogue",
         element: <CatelougePage />,
-        // loader: "cateLoader"
+        loader: CatelogueLoader
       }
     ]
   }
