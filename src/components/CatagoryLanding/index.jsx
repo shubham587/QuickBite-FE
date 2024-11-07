@@ -38,7 +38,7 @@ const CATEGORY = [
 const CategoryComp = () => {
     return (
         <div className="category-comp 2">
-            <h1 className='m-5 text-5xl text-center text-black-500 font-bold '>Category</h1>
+            <h1 className='m-5 text-5xl text-center text-black-500 text-black font-bold '>Category</h1>
             <div className="category-grid grid grid-cols-2 gap-6">
                 {
                     CATEGORY.map((item, ind) => (

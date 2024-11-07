@@ -1,8 +1,8 @@
 import logo from "../../images/logo.webp";
 const Footer = () => {
   return (
-    <footer>
-      <div className="bg-black flex justify-evenly l-[10%] p-[2%] mt-4  text-[22px]" style={{ display: "flex" }}>
+    <footer className="w-100">
+      <div className="bg-black flex justify-evenly l-[10%] p-[2%] mt-4  text-[22px]" >
         <div className="flex flex-col justify-center align-middle text-center">
         <img className="h-40 w-40" src={logo} alt="asdad" />
             <p className="text-white text-sm">Contact Us</p>
