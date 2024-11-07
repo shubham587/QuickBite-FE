@@ -4,6 +4,7 @@ import LoginPage from './pages/login';
 import Navbar from './components/index'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import DefaultLayout from './Layout/DefaultLayout';
+import LandPage from './pages/LandingPage/index.jsx';
 
 
 const router = createBrowserRouter([
@@ -13,7 +14,9 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: "homeComp"
+        element: <LandPage />,
+        // loader: "loaderFunction",
+        // action: "actionFunction"
       }, 
     ]
   }
