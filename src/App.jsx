@@ -13,6 +13,7 @@ import CatelougePage, {loader as CatelogueLoader} from "./pages/CateloguePage";
 // import { loader as CatelogueLoader } from "../src/pages/CateloguePage/index.jsx";
 import SignUp, { action as signupAction} from "./pages/Signup/index.jsx";
 import LoginPage, {action as loginAction} from "./pages/Login/index.jsx";
+import CartPage, {loader as CartLoader} from "./pages/Cart.jsx";
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,8 @@ const router = createBrowserRouter([
       },
       {
         path: "cart",
+        element: <CartPage />,
+        loader: CartLoader,
       },
       {
         path: "account"

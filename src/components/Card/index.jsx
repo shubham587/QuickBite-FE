@@ -1,17 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "../ui/button";
-import { useDispatch } from "react-redux";
-import { removeItem } from "@/store/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import userSlice, { addItem, removeItem } from "@/store/userSlice";
 
 const Card = ({ food_img, food_name, food_price, food_desc, item }) => {
   const [counter, setCounter] = useState(0);
+  const cart = useSelector((state) => state.user.cart) || [];
   const dispatch = useDispatch();
 
+  console.log("cart", cart);
   // useEffect(() => {
   //   if (counter == 0) {
   //     dispatch(removeItem(item));
   //   }
   // }, [counter]);
+  const removeFromCart = (item) => {
+    dispatch(removeItem(item["_id"]["$oid"]));
+  }
+
+  const addToCart = (item) => {
+    console.log(item);
+    dispatch(addItem(item["_id"]["$oid"]));
+  };
 
   return (
     // I need to create a cards for food item which include food image, food name, food description
@@ -30,7 +40,21 @@ const Card = ({ food_img, food_name, food_price, food_desc, item }) => {
         </div>
         <div className="flex flex-row gap-2">
           <div className="add-cart w-full  bg-orange-500 rounded-2xl  border">
-            <Button className="btn text-center btn-sm">Add to Cart</Button>
+            {cart.includes(item["_id"]["$oid"]) ? (
+              <Button
+                onClick={() => removeFromCart(item)}
+                className="btn text-center btn-sm"
+              >
+                Remove Cart
+              </Button>
+            ) : (
+              <Button
+                onClick={() => addToCart(item)}
+                className="btn text-center btn-sm"
+              >
+                Add to Cart
+              </Button>
+            )}
           </div>
           <div className="counter bg-slate-300 p-2 rounded-xl flex flex-row  w-28 justify-evenly border">
             <button

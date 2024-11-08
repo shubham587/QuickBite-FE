@@ -94,7 +94,7 @@ const CatelougePage = () => {
   };
   return (
     <div>
-      <div className="  mt-28 flex w-dvw flex-row ">
+      <div className="  mt-28 flex w-[93vw] flex-row ">
         <div className="tags text-black flex flex-row gap-8">
           {FOOD_TAGS.map((ele, ind) => (
             <Link key={ind} to={`/catelogue/${ele.path}`}>
@@ -110,7 +110,7 @@ const CatelougePage = () => {
             </Link>
           ))}
         </div>
-        <div className="filter-bar m-auto flex flex-row gap-8">
+        <div className="filter-bar ml-auto flex flex-row gap-8">
           <div className="veg-non text-center">
             {
               <div className="bg-white rounded-2xl p-2 w-40">

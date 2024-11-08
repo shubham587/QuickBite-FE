@@ -158,7 +158,7 @@ const Navbar = () => {
           </li>
           <li
             className=""
-            onClick={() => navigate("/quick-bite-application/cart")}
+            // onClick={() => navigate("/quick-bite-application/cart")}
           >
             <NavLink
               to="/cart"

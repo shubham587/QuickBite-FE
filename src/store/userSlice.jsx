@@ -20,14 +20,18 @@ const userSlice = createSlice({
         addItem(state, action) {
             console.log(state, "state from add item")
             console.log(action, "action from add item")
-            if(!state.cart.includes({"prod_id": action.payload})){
-                state.cart.push({"prod_id": action.payload});
+            if(!state.cart.includes(action.payload)){
+                state.cart.push(action.payload)
             }
+
+            // if(!state.cart.includes({"prod_id": action.payload})){
+            //     state.cart.push({"prod_id": action.payload});
+            // }
         },
         removeItem(state, action){
             const cart = state.cart
-            cart.filter((ele) => ele["prod_id"] != action.payload)
-            state.cart = cart
+            let cartVal = cart.filter((ele) => ele != action.payload)
+            state.cart = cartVal
             console.log("addItemStore", cart,  action.payload)
         },
         setUser(state, action){
