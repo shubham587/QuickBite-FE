@@ -5,24 +5,29 @@ const initialState = {
     email : null,
     ps: null,
     location: null,
-    "fav-cart": [],
+    cart: [],
 }
 
 const userSlice = createSlice({
     initialState: initialState,
     name: "user",
     reducers: {
+        locationChange(state, action){
+            state.cart = []
+            state.location = action.payload.location
+            console.log("location changed", state.location)
+        },
         addItem(state, action) {
             console.log(state, "state from add item")
             console.log(action, "action from add item")
-            if(!state["fav-cart"].includes({"prod_id": action.payload})){
-                state["fav-cart"].push({"prod_id": action.payload});
+            if(!state.cart.includes({"prod_id": action.payload})){
+                state.cart.push({"prod_id": action.payload});
             }
         },
         removeItem(state, action){
-            const cart = state["fav-cart"]
+            const cart = state.cart
             cart.filter((ele) => ele["prod_id"] != action.payload)
-            state["fav-cart"] = cart
+            state.cart = cart
             console.log("addItemStore", cart,  action.payload)
         },
         setUser(state, action){
@@ -31,7 +36,7 @@ const userSlice = createSlice({
             state.email = action.payload.email;
             state.location = action.payload.location
             state.ps = action.payload.ps
-            state["fav-cart"] = action.payload["fav-cart"]
+            state.cart = action.payload["fav-cart"]
         }
     },
     // extraReducers: {
@@ -40,5 +45,5 @@ const userSlice = createSlice({
     // }
 })
 
-export const { addItem, removeItem, setUser} = userSlice.actions
+export const { addItem, removeItem, setUser, locationChange} = userSlice.actions
 export default userSlice

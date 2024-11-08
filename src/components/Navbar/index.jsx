@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "@/store/authSlice";
 import { toast } from "react-toastify";
 import api from "@/service/api";
+import { locationChange } from "@/store/userSlice";
 
 const AccountDropdownNotSign = [
   {
@@ -37,7 +38,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth.isAuthenticated);
-
+  let first = 0;
   useEffect(() => {
     if (auth) {
       setAccount("AccountDropdownSign");
@@ -49,6 +50,25 @@ const Navbar = () => {
       );
     }
   }, [auth]);
+
+  // useEffect should not run function for the first time
+  // useEffect(() => {
+  //   if (auth) {
+  //     api
+  //       .get("/user/location")
+  //       .then((res) => {
+  //         setLocation(res.data);
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   }
+  // }, [auth]);
+
+  useEffect(() => {
+      dispatch(locationChange({ location }));
+    
+  }, [location]);
 
   const LocationDropdown = [
     {
@@ -71,7 +91,7 @@ const Navbar = () => {
       toast.error("Failed to logout");
     }
   };
-  
+
   const accountHandler = (val) => {
     if (val == "Login") {
       navigate("/auth/login");
@@ -84,27 +104,16 @@ const Navbar = () => {
     }
   };
 
-  
-
   const locationHandler = (val) => {
-    setLocation(val);
+    setLocation((prev) => val);
   };
 
   return (
-    <div className="flex justify-between m-auto z-20 mb-36 border left-0 fixed place-items-center align-middle text-xl bg-white text-black p-[2px_20px] w-full  h-[11%]  top-0 ">
+    <div className="flex justify-between m-auto z-20 mb-36 border left-0 fixed place-items-center align-middle text-lg bg-white text-black p-[2px_20px] w-full  h-[11%]  top-0 ">
       <div className="w-24 h-24 flex-none ml-64 ">
         <img src={logo} alt="" className=" max-w-full h-auto left-[8%]" />
       </div>
-      {/* <div className="spacer"></div>
-      <div className="searchBar">
-      <input
-        type="text"
-        // value={query}
-        // onChange={handleInputChange}
-        placeholder="Search..."
-        className="searchInput"
-      />
-    </div> */}
+
       <div className="input-container">
         <Input
           className="w-80  text-black rounded-full"

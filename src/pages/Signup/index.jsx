@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 const SignUpAuth = () => {
   const [formData, setFormData] = useState({});
   const [userError, setUserError] = useState(null)
+  const [location, setLocation] = useState("Select location")
 
   const navigate = useNavigate();
   const actionValue = useActionData();
@@ -84,6 +85,9 @@ const SignUpAuth = () => {
               formTitle={"User Registration"}
               onSubmit={submitHandler}
               btnTitle="Signin"
+              checkItem = {location}
+              location={true}
+              locationHandler={(val) => {setLocation(val); console.log(location)}}
             >
               <Button
                 onClick={() => navigate("/auth/login")}

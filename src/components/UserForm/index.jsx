@@ -1,6 +1,7 @@
 import classNames from "classnames";
 import React, { Children, useEffect, useState } from "react";
 import { Form } from "react-router-dom";
+import Dropdown from "../Dropdown";
 const UserForm = ({
   userErr,
   errors,
@@ -10,12 +11,14 @@ const UserForm = ({
   btnTitle,
   onSubmit,
   formTitle,
+  location,
+  locationHandler,
+  checkItem
 }) => {
   const initialFormData = fields.reduce((acc, field) => {
     acc[field.name] = "";
     return acc;
   }, {});
-
 
   const [form, setForm] = useState(initialFormData);
   const [error, setError] = useState(errors);
@@ -24,23 +27,22 @@ const UserForm = ({
 
   useEffect(() => {
     if (userErr) {
-      setUserErrKey(1+Math.random(1,4)); // or use a unique identifier
+      setUserErrKey(1 + Math.random(1, 4)); // or use a unique identifier
     }
   }, [userErr]);
 
   useEffect(() => {
-    setError(errors)
-  }, [errors])
+    setError(errors);
+  }, [errors]);
 
-  
   useEffect(() => {
     if (userErr != null) {
       setForm((prev) => {
         return { ...prev, email: "", password: "", "confirm-password": "" };
-      })
-      console.log("first")
+      });
+      console.log("first");
     }
-  }, [userErrKey])
+  }, [userErrKey]);
 
   const formClassName = classNames(
     "max-w-lg text-start gap-5  m-auto p-8 bg-orange-400 rounded-2xl shadow-md",
@@ -69,8 +71,6 @@ const UserForm = ({
   };
   // console.log(form)
 
-
-
   const formHandler = (e) => {
     e.preventDefault();
     console.log(form, e);
@@ -97,8 +97,9 @@ const UserForm = ({
               {field.label}
             </label>
             <input
-              className={`shadow appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline  ${error[field.name] ? "border-red-500" : ""
-                }`}
+              className={`shadow appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline  ${
+                error[field.name] ? "border-red-500" : ""
+              }`}
               type={field.type}
               name={field.name}
               placeholder={field.placeholder}
@@ -107,6 +108,7 @@ const UserForm = ({
                 setForm({ ...form, [field.name]: e.target.value });
               }}
             />
+
             {error[field.name] && (
               <span className="text-red-800 text-xs italic">
                 {error[field.name]}
@@ -114,6 +116,15 @@ const UserForm = ({
             )}
           </div>
         ))}
+        {/* {location && (
+          <Dropdown
+          className="text-black ml-6 w-[200px]"
+            // triggerName="Select Location"
+            items={[{ name: "Bangalore" }, { name: "Chennai" }]}
+            onChangeFunction={locationHandler}
+            checkItem={checkItem}
+          />
+        )} */}
         <div className="user-err">
           {userErr != null ? <h3 className=" text-red-500">{userErr}</h3> : ""}
         </div>
@@ -129,5 +140,3 @@ const UserForm = ({
 };
 
 export default UserForm;
-
-
