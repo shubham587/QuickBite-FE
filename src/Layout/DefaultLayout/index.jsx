@@ -1,4 +1,4 @@
-import Navbar from "@/components";
+import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import React from "react";
 import { Outlet } from "react-router-dom";
@@ -13,7 +13,7 @@ const DefaultLayout = () => {
         <Outlet />
       </div>
       <div className="w-100">
-        {/* <Footer /> */}
+        <Footer />
       </div>
     </div>
   );
